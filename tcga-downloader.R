@@ -1,7 +1,7 @@
 ## Downloading TCGA Data in R
 #. For downloading colorectal and breast cancer gene data from the Genomic Data 
 #. Commons (GDC) portal onto local machine
-
+#. Documentation: https://bioconductor.org/packages/release/bioc/html/TCGAbiolinks.html
 
 # Pre-requisite: Installing TCGAbiolinks
 if (!requireNamespace("BiocManager", quietly=TRUE))
@@ -11,26 +11,34 @@ BiocManager::install("TCGAbiolinks")
 # Libraries
 library(TCGAbiolinks)
 library(dplyr)
-library(DT)
+library(DT) 
 
-# Colorectal Cancer Query
+#. Guide on searching the GDC database: 
+#. https://bioconductor.org/packages/release/bioc/vignettes/TCGAbiolinks/inst/doc/query.html
+
+## Colorectal Cancer Query
 query <- GDCquery(
   project = "TCGA-COAD",
-  data.category = "DNA methylation",
-  barcode = c("TCGA-06-0122","TCGA-14-1456"),
-  platform = "Illumina Human Methylation 27",
-  legacy = TRUE
+  data.category = "Transcriptome Profiling",
+  data.type = "Gene Expression Quantification",
+  experimental.strategy = "RNA-Seq",
+  workflow.type = "STAR - Counts",
+  access = open
 )
+getResults(query)
 GDCdownload(query)
 data.colorectal <- GDCprepare(query)
 
-# Breast Cancer Query
+
+## Breast Cancer Query
 query <- GDCquery(
-  project = "TCGA-COAD",
-  data.category = "DNA methylation",
-  barcode = c("TCGA-06-0122","TCGA-14-1456"),
-  platform = "Illumina Human Methylation 27",
-  legacy = TRUE
+  project = "TCGA-BRCA",
+  data.category = "Transcriptome Profiling",
+  data.type = "Gene Expression Quantification",
+  experimental.strategy = "RNA-Seq",
+  workflow.type = "STAR - Counts",
+  access = open
 )
+getResults(query)
 GDCdownload(query)
-data.colorectal <- GDCprepare(query)
+data.breast <- GDCprepare(query)
