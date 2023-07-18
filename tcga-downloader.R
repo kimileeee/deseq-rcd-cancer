@@ -23,7 +23,8 @@ query <- GDCquery(
   data.type = "Gene Expression Quantification",
   experimental.strategy = "RNA-Seq",
   workflow.type = "STAR - Counts",
-  access = open
+  access = "open",
+  barcode = c("TCGA-D5-6540-01A", "TCGA-AA-3525-11A", "TCGA-AA-3525-01A", "TCGA-AA-3815-01A", "TCGA-D5-6923-01A")
 )
 getResults(query)
 GDCdownload(query)
@@ -37,7 +38,7 @@ query <- GDCquery(
   data.type = "Gene Expression Quantification",
   experimental.strategy = "RNA-Seq",
   workflow.type = "STAR - Counts",
-  access = open
+  access = "open"
 )
 getResults(query)
 GDCdownload(query)
